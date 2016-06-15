@@ -1,4 +1,4 @@
-# [Project] Google Scholar Research Performance Analyzer (GRESPA)
+# Google Scholar Research Performance Analyzer (GRESPA)
 
 ## Project Architecture
 
@@ -100,4 +100,3 @@ If your database is slow, you may want to create indexes over appropriate column
 
 - Philipp Meschenmoser
 - Manuel Hotz
-
