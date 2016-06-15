@@ -1,0 +1,35 @@
+<!-- extend base layout -->
+{% extends "geobase.html" %}
+
+{% block content %}
+	<div id='measureWrapper'>
+		<div style="float:left;width:150px;padding-right:10px; padding-top:6px;">
+			<div id="dotSize"></div>
+		</div>
+        <div id="legendwrapper">
+			<div id="legend"></div>
+		</div>
+		<div style="float:left;width:100px">
+			<select id='measures' autocomplete="off">
+				<option>#Authors</option>
+				<option>Cited (Sum)</option>
+				<option>Cited (Avg)</option>
+				<option>h5 (Sum)</option>
+				<option>h5 (Avg)</option>
+				<option>i5 (Sum)</option>
+				<option>i5 (Avg)</option>
+			</select>
+			<div id="top" style="background:steelblue; width:100px; height:100px;overflow:auto;">
+				<table></table>
+			</div>
+		</div>
+	</div>
+	<input id="search" class="controls" type="text">
+	<div id='map' style="width:100%;height:100%;">
+{% endblock %}
+
+{% block pagescript %}
+<script type="text/javascript" src="{{ url_for('static', filename='js/spatLegend.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/geo_m.js') }}"></script>
+
+{% endblock %}

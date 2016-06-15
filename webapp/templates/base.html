@@ -1,0 +1,99 @@
+{% from "nav.html" import nav_bar with context %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{ url_for('static', filename='bower_components/bootstrap/dist/css/bootstrap.min.css') }}"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.10/css/dataTables.bootstrap.min.css">
+    <!-- MetisMenu CSS -->
+    <link href="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.css') }}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/main.css') }}">
+
+    <link href="{{ url_for('static', filename='dist/css/sb-admin-2.css') }}" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='bower_components/font-awesome/css/font-awesome.min.css') }}"
+          rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/style_explorer.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/jquery_ui.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/d3.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/metricsgraphics.css') }}">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{ nav_bar(nav) }}
+
+    <!-- Page Content -->
+    {% block content %}{% endblock %}
+
+    {#  Footer from the bootstrap docs :P  #}
+    <footer class="footer">
+        <div class="container">
+            <p>Built by Philipp and Manuel for the project in WebIR 2015/2016.</p>
+            </div>
+    </footer>
+</div>
+<!-- /#wrapper -->
+
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
+<!-- jQuery -->
+<script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{ url_for('static', filename='bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+
+<!-- Metis Menu Plugin JavaScript -->
+<script src="{{ url_for('static', filename='bower_components/metisMenu/dist/metisMenu.min.js') }}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{ url_for('static', filename='dist/js/sb-admin-2.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/d3.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/entity.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/container.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/BarChart.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/d3.tip.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/diff.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/metricsgraphics.js') }}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/dataTables.bootstrap.min.js"></script>
+
+{% block pagescript %}{% endblock %}
+
+</body>
+
+</html>

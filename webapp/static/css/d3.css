@@ -1,0 +1,113 @@
+.svgResponsive {
+    /* make svg resizable*/
+    display: inline-block;
+    position: absolute;
+    shape-rendering: "geometricPrecision"
+}
+
+.nodeContainer{
+font-size:8px;
+fill:black; 
+
+text-anchor:middle; 
+}
+.nodeContainer circle {
+
+stroke-width:5px;
+}
+.link {
+	fill:none;
+  stroke: white;
+  stroke-width: 1.5px;
+
+}
+#arrows{
+fill:white; 
+stroke:white; 
+}
+
+.axis2 path,
+
+/* for circular heat charts */
+
+.axis2 line {
+    fill: none;
+    stroke: white;
+    shape-rendering: geometricPrecision;
+    /*crisp edges would be rather buggy... */
+}
+
+.axis2 text {
+    fill: white;
+    font-size: 10px;
+}
+
+
+/* 
+
+For Focus + Context Bar Chart
+
+*/
+.focusCanvas rect{
+stroke:silver; 
+stroke-width:0.2px;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: silver;
+    shape-rendering: geometricPrecision;
+}
+
+.axis text {
+    fill: white;
+    font-size: 0.9em;
+}
+.brush .extent {
+    stroke: #fff;
+    fill-opacity: .5;
+    shape-rendering: crispEdges;
+}
+
+.tlabel {
+    fill: white;
+    font-size: 0.7em;
+}
+#awesomeBarChart{
+font-size:12px; 
+}
+.tooltip{
+    line-height: 1;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;	
+    border-radius: 2px;
+}
+
+.tooltip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 12px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+}
+
+.tooltip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+}
+.axis3 path,
+.axis3 line {
+    fill: none;
+    stroke: black;
+    shape-rendering: geometricPrecision;
+}
+.blabel {
+    fill: black;
+    font-size: 0.7em;
+}

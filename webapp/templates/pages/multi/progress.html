@@ -1,0 +1,201 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{#    <div id="page-wrapper">#}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">{{ header }}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            {% if errors %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% for error in errors %}
+                            <div class="alert alert-danger" role="alert">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                <span class="sr-only">Error:</span>
+                                {{ error }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% if ids %}
+                <div class="row">
+                <div class="col-md-12">
+                    <p>Crawling data for {{ num }} researchers.</p>
+
+                    {#                <div class="progress">#}
+                    {#                    <div id="crawling-progress" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"#}
+                    {#                         aria-valuemax="100" style="width: 60%;">#}
+                    {#                        60%#}
+                    {#                    </div>#}
+                    {#                </div>#}
+
+                    {#  pending: warning, finished: success, canceled: danger  #}
+                    {% for job in jobs %}
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="progress" id="job-{{ job.jobid }}">
+                                    <div class="progress-bar progress-bar-warning progress-bar-striped active"
+                                         style="width: 100%">
+                                        N/A
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div id="show_results" class="col-md-12 show_results"><a
+                                class="btn btn-default btn-primary btn-lg btn-block disabled" href="#"
+                                role="button">Show Results</a></div>
+                    </div>
+                </div>
+                </div>
+            {% endif %}
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+{#    </div>#}
+    <!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+    {#  id: #crawling-progress
+    update: style witdh: XX%;
+    update: html text XX %
+    #}
+    <script type="text/javascript">
+        var descriptions = {'pending': "Pending", 'finished': "Finished", 'canceled': "Canceled", 'running': 'Running'};
+
+        var jobs = {{ jobs | tojson }};
+
+        var endpoint = 'http://localhost:6800/listjobs.json?project=gscholar_scraper'
+        {#        var base_url = '/test/';#}
+        {#        var list_jobs = 'listjobs';#}
+
+        {# join the author ids inside the jobs to a query string #}
+        var makeshift_params_join = function (jobs) {
+            return jobs.map(function (a) {
+                return a.id
+            }).map(function (id) {
+                return 'author_id=' + id
+            }).join('&')
+        };
+
+        var check_finished = function () {
+            $.ajax({
+                type: 'GET',
+                url: endpoint,
+                async: true,
+                success: function (msg) {
+                    // check that our job is finished
+
+                    {#
+                     {
+                      "status": "ok",
+                      "running": [],
+                      "finished": [
+                        {
+                          "start_time": "2016-01-24 11:34:10.362792",
+                          "end_time": "2016-01-24 11:34:18.994397",
+                          "id": "60cd913ac28e11e59a4d0242ac11000d",
+                          "spider": "author_complete"
+                        }
+                      ],
+                      "pending": [],
+                      "node_name": "58394e5efede"
+                    }
+                    #}
+
+                    // for each job
+                    // update job status
+                    // load page with results once _all_ jobs are finished
+                    var num_ended = 0;
+                    // TODO empyting the progress bar leads to stuttering animation, fix it
+                    for (var i = 0; i < jobs.length; ++i) {
+                        // check pending
+                        pending = (msg.pending === undefined ? [] : msg.pending);
+                        for (var j = 0; j < pending.length; ++j) {
+
+                            if (pending[j].id == jobs[i].jobid) {
+                                var el = $("#job-" + jobs[i].jobid);
+                                el.empty();
+                                $('<div class="progress-bar progress-bar-striped progress-bar-info active" style="width: 100%"></div>')
+                                        .appendTo(el)
+                                        .html(descriptions.pending);
+                            }
+                        }
+                        // check running
+                        running = (msg.running === undefined ? [] : msg.running);
+                        for (var j = 0; j < running.length; ++j) {
+                            if (running[j].id == jobs[i].jobid) {
+                                var el = $("#job-" + jobs[i].jobid);
+                                el.empty();
+                                $('<div class="progress-bar progress-bar-striped progress-bar-warning active" style="width: 100%"></div>')
+                                        .appendTo(el)
+                                        .html(descriptions.running);
+                            }
+                        }
+
+                        // check finished
+                        finished = (msg.finished === undefined ? [] : msg.finished);
+                        for (var j = 0; j < finished.length; ++j) {
+                            if (finished[j].id == jobs[i].jobid) {
+                                var el = $("#job-" + jobs[i].jobid);
+                                el.empty();
+                                $('<div class="progress-bar progress-bar-success" style="width: 100%"></div>')
+                                        .appendTo(el)
+                                        .html(descriptions.finished);
+                                num_ended++;
+                            }
+                        }
+                        // check canceled
+                        canceled = (msg.canceled === undefined ? [] : msg.canceled);
+                        for (var j = 0; j < canceled.length; ++j) {
+                            if (canceled[j].id == jobs[i].jobid) {
+                                var el = $("#job-" + jobs[i].jobid);
+                                el.empty();
+                                $('<div class="progress-bar progress-bar-danger" style="width: 100%"></div>')
+                                        .appendTo(el)
+                                        .html(descriptions.canceled);
+                                num_ended++;
+                            }
+                        }
+                    }
+                    // TODO inform user about canceled tasks
+                    if (num_ended == jobs.length) {
+                        // we can load the results page
+                        console.log('All done.')
+                        console.log(jobs)
+                        // TODO jobs.id to id param
+                        var link = '/compare?' + makeshift_params_join(jobs);
+                        var btn = $('#show_results>a');
+                        btn.removeClass('disabled');
+                        btn.attr('href', link);
+                        {#                        window.location = link #}
+                    } else {
+                        console.log('Could not find all finished');
+                        console.log(msg);
+                        setTimeout(check_finished, 500);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert('AJAX failure');
+                    console.error(thrownError);
+                }
+            });
+
+        }
+
+        $(document).ready(function () {
+            check_finished();
+        });
+
+    </script>
+{% endblock %}

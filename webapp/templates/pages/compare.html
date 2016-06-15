@@ -1,0 +1,110 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{#    <div id="page-wrapper">#}
+    <div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Comparing for Field
+                        <small>{{ field_name }}</small></h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        {% if errors %}
+            {% for error in errors %}
+                <div class="row">
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        {{ error }}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+            {% if researcher %}
+                <div class="row" id="compare">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <div class="thumbnail">
+                                <img src="https://scholar.google.de/citations?view_op=view_photo&user={{ researcher.id }}&citpid=2"
+                                     alt="..." width="150px" height="150px">
+
+                                <div class="caption">
+                                    <h3>{{ researcher.name }}</h3>
+                                    <ul>
+                                        {% for f in researcher.fields_of_study %}
+                                            <li><a href="/fos/{{ f }}">{{ f }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-sm-6 col-md-4">-->
+                        <!--<div class="thumbnail">-->
+                        <!--<img src="http://placekitten.com/150/114" alt="...">-->
+
+                        <!--<div class="caption">-->
+                        <!--<h3>Average User in Field</h3>-->
+
+                        <!--<ul>-->
+                        <!--<li>Chemistry</li>-->
+                        <!--<li>Biology</li>-->
+                        <!--</ul>-->
+
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </div>
+                    <div class="row">
+                        <div id="firstMeasures"></div>
+                        <div id="remMeasures"></div>
+                        <div class="col-lg-12" id="compare_chart">
+                            {% if researcher and researcher.measures and avg and avg.avg_measures %}
+                                <div id="barchart_material" style="width: 900px; height: 500px;"></div>
+                            {% else %}
+                                <div class="alert alert-info" role="alert">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Info:</span>
+                                    {{ researcher.name }} currently has no measures attached or no average could be computed.
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+    {% if avg.avg_measures and researcher and researcher.measures %}
+        <script type="text/javascript">
+            $(function() {
+                var firstData = {
+                    first: [{{researcher.measures[0:2]|join(',')}}],
+                    second: [{{avg.avg_measures[0:2]|join(',')}}]
+                };
+                var remData = {
+                    first: [{{researcher.measures[2:7]|join(',')}}],
+                    second: [{{avg.avg_measures[2:7]|join(',')}}]
+                };
+                console.log(remData);
+                var categories1 = [{label: 'Cited', color: 'steelblue'}, {label: 'Cited (2010)', color: 'green'}]
+                var categories2 = [{label: 'h', color: 'steelblue'}, {label: 'h (2010)', color: 'green'}, {
+                    label: 'i10',
+                    color: 'red'
+                }, {label: 'i10 (2010)', color: 'red'}]
+                var test1 = new Diff('#firstMeasures', firstData, categories1);
+                var test2 = new Diff('#remMeasures', remData, categories2);
+            });
+        </script>
+    {% endif %}
+{% endblock %}

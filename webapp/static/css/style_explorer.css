@@ -1,0 +1,84 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('fonts/Roboto-Regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto-Thin';
+    src: url('fonts/Roboto-Thin-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#wrapperOuter {
+    width:1200px;
+	height:550px;
+	/*position:relative;*/
+	/*left:50%;*/
+	/*top:50%;*/
+	/*margin:-275px 0 0 -600px;*/
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Roboto';
+    font-size: 10px;
+    color: black;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#explorer-wrapper {
+  float:left; 
+  height:550px;
+  width:calc(100% - 150px);
+  background:#606060;
+}
+#wrapperInfo { 
+ width:150px; 
+height:550px;
+float:left;
+background:black; 
+color: white; 	
+}
+#colorPicker {
+    padding: 2px;
+}
+
+#colorPicker td {
+    width: 15px;
+    height: 15px;
+    border: solid;
+    border-width: 2px;
+    border-color: white;
+    cursor: pointer;
+}
+
+#colorPicker td.selectedPick {
+    border-color: steelblue;
+}
+#spinner{
+width:62px; 
+}
+select {
+width:90px; 
+
+}
+#rankings {
+font-size:9px;
+}
+#timeDev { 
+font-size:9px; 
+}
+#profile {
+ position:relative;
+   top:50%;
+   left:50%;
+   margin-top:-70px;
+   margin-left:-57px;
+}

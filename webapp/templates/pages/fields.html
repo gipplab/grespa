@@ -1,0 +1,50 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{#<div id="page-wrapper">#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Fields of Studies</h1>
+            </div>
+            <div class="table-responsive col-lg-12">
+                        <table class="table table-striped display" id="fields">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+{#</div>#}
+<!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+    <script>
+        String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+        $(document).ready(function () {
+            var table = $('#fields').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ url_for('api_fields') }}",
+                {# Hide timestamps #}
+                "columnDefs": [{"visible": false, "targets": [1, 2]},{"render": function(data, type, row) {
+                    return '<a href="/fos/' + data + '">' + data.replaceAll('_', ' ') + '</a>'
+                }, "targets" : 0}],
+            });
+        });
+    </script>
+{% endblock %}

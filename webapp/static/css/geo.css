@@ -1,0 +1,91 @@
+html { height: 100% }
+body { height: 100%; margin: 0px; padding: 0px }
+
+#delete {
+    background: #555555 url("img/delete.png") no-repeat;
+    background-size: 20px 20px;
+    background-position: 50% 50%;
+    width: 28px;
+    height: 28px;
+}
+
+#delete.ui-state-active {
+    background: #007BFF url("img/delete.png") no-repeat;
+    background-size: 20px 20px;
+    background-position: 50% 50%;
+    width: 28px;
+    height: 28px;
+}
+.ui-autocomplete.ui-widget {
+  font-family: Verdana,Arial,sans-serif;
+  font-size: 10px;
+}
+
+			#search {
+			  background-color: #fff;
+			  font-family: Roboto;
+			  font-size: 15px;
+			  font-weight: 300;
+			  margin-left: 20px;
+			  padding: 0 11px 0 13px;
+			  text-overflow: ellipsis;
+			  width: 200px;
+			  display:none; 
+			}
+
+			#search:focus {
+			  border-color: #4d90fe;
+			}
+			#jlist {
+			display:none; 
+			}
+			.ui-selectmenu-menu, .ui-selectmenu-text { 
+				font-size:10px;
+			}
+				.unis, .unis svg {
+  position: absolute;
+}
+
+.unis svg {
+  width: 60px;
+  height: 60px;
+  padding-right: 100px;
+  font: 10px sans-serif;
+}
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+#measures { 
+	font-size:10px; 
+	width:100px;
+border: 10px solid red;	
+}
+#measureWrapper { 
+display:none; 
+}
+
+	#legendwrapper {
+    display: none;
+    background: rgba(0, 0, 0, 0.4);
+    padding-left: 2px;
+}
+
+#legend {
+    padding: 2px;
+    padding-right: 0px; //done by d3
+    padding-left: 0px;
+    width: 235px;
+    height: 30px;
+}
+
+#legend text {
+    font-size: 9px;
+	fill:white;
+}

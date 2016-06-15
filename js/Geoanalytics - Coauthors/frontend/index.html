@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<!-- meta definitions -->
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="style/jquery-ui.css" />
+		<link rel="stylesheet" type="text/css" href="style/d3.css" />
+		<style type="text/css">
+			#search {
+			  background-color: #fff;
+			  font-family: Roboto;
+			  font-size: 15px;
+			  font-weight: 300;
+			  margin-left: 20px;
+			  padding: 0 11px 0 13px;
+			  text-overflow: ellipsis;
+			  width: 200px;
+			  display:none; 
+			}
+
+			#search:focus {
+			  border-color: #4d90fe;
+			}
+			#jlist {
+			display:none; 
+			}
+			.ui-selectmenu-menu, .ui-selectmenu-text { 
+font-size:1px;
+
+}
+			  html { height: 100% }
+			  body { height: 100%; margin: 0px; padding: 0px }
+		</style>
+		<script src="js/jquery-2.1.4.min.js"></script>
+		<script src="js/jquery-ui.js"></script>
+		<script src="js/mapStyle.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTfnhICiuKWcsNTUHqbfRWFkcHoKZLwqs&language=de&libraries=geometry,places"></script>
+		<title>Google Scholar Geoanalytics: Coauthor Relations</title>
+	</head>
+    <body>
+	<div id="controlwrapper">
+	<input id="search" type="text" autocomplete="off">
+	<div id='jlist' style="width:250px;">
+		<select size="3" style="width:208px;opacity:0.2;height:50px;float:right" autocomplete="off">
+		</select>
+		<button id="delete" style="width:20px;height:20px; float:right;"></button>
+	</div>
+	</div>
+	<div id='map' style="width:100%;height:100%;">
+     <script src="js/edgemain.js"></script>
+    </body>
+</html>

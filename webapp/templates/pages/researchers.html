@@ -1,0 +1,101 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{#<div id="page-wrapper">#}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Researchers</h1>
+            </div>
+            <div class="table-responsive col-lg-12">
+                        <table class="table table-striped" id="authors">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Fields Of Study</th>
+                                <th>Cited</th>
+                                <th>Measures</th>
+                                <th>Org</th>
+                                <th>Has Co</th>
+                                <th>Created At</th>
+                                <th>Updated At</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+{#                            {% for researcher in researchers %}#}
+{#                                <tr>#}
+{#                                    <td><a href="/researcher/{{ researcher.id }}">{{ researcher.name }}</a></td>#}
+{#                                    <td>{% if researcher.cited %}{{ researcher.cited }}{% endif %}</td>#}
+{#                                    <td>#}
+{#                                    {% if researcher.fields_of_study %}#}
+{#                                        {% for f in researcher.fields_of_study %}#}
+{#                                            <a href="/fos/{{ f }}">{{ f }}</a>#}
+{#                                        {% endfor %}#}
+{#                                    {% endif %}#}
+{#                                    </td>#}
+{#                                    <td>{{ researcher.hasCo }}</td>#}
+{#                                    <td>{% if researcher.org %}#}
+{#                                        <a href="https://scholar.google.ch/citations?view_op=view_org&org={{ researcher.org }}&hl=de&oi=io">GS</a>{% endif %}#}
+{#                                    </td>#}
+{#                                </tr>#}
+{#                            {% endfor %}#}
+                            </tbody>
+                        </table>
+                </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+{#</div>#}
+<!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+    <script>
+        String.prototype.replaceAll = function (search, replacement) {
+            var target = this;
+            return target.replace(new RegExp(search, 'g'), replacement);
+        };
+        $(document).ready(function () {
+            var table = $('#authors').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": "{{ url_for('api_researchers') }}",
+                {# Hide timestamps #}
+                "columnDefs": [
+                    {"visible": false, "targets": [0, 3, 4, 6, 7, 8]},
+                    {
+                        {# data: current cells data
+                           type: datatype
+                           row: current rows data in Object[]
+                        #}
+                        "render": function (data, type, row) {
+                        {# Unfortunately our array is already a string... so... #}
+                            if (data === 'None') {
+                                return null;
+                            }
+                            data = data.replace('[', '')
+                            data = data.replace(']', '')
+                            labels = data.split(',')
+                                    .map(function(s) {return s.trim()})
+                                    .map(function(s) {return s.match('^u\'(.*)\'')[1]})
+                                    .map(function(s) {return '<a href="/fos/' + s + '">' + s.replaceAll('_', ' ') + '</a>'})
+                            return labels.join(', ');
+                        },
+                        "targets": 2
+                    },
+                    { "render": function(data, type, row) {
+                        return '<a href="https://scholar.google.ch/citations?view_op=view_org&org=' + data + '">Organization</a>'
+                    },
+                        "targets": 5
+                    },
+                ],
+            });
+        });
+    </script>
+{% endblock %}

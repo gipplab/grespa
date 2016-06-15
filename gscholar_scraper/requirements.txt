@@ -1,0 +1,8 @@
+# Scrapy framework
+scrapy>=1.0
+stem
+python-dotenv
+scrapy-fake-useragent
+sqlalchemy
+psycopg2
+scrapyd-client

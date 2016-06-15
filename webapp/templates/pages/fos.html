@@ -1,0 +1,80 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+
+{#    <div id="page-wrapper">#}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">{{ header }}</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                {% if not results %}
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        No authors could be found for field "{{ field_of_study }}".
+                    </div>
+                {% else %}
+                    <h2 class="sub-header">Listing Authors in
+                        <mark>{{ field_of_study }}</mark>
+                    </h2>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="dataTable">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Fields of Study</th>
+                                <th>Cited</th>
+                                <th>Has Organization</th>
+                                <th>Measures</th>
+{#                                <th>Updated At</th>#}
+{#                                <th>Created At</th>#}
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for result in results %}
+                                <tr>
+                                    <td><a href="/researcher/{{ result.id }}">{{ result.name }}</a></td>
+                                    <td>
+                                    {% if result.fields_of_study %}
+                                        {% for f in result.fields_of_study %}
+                                            <a href="/fos/{{ f }}">{{ f }}</a>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </td>
+                                    <td>{{ result.cited }}</td>
+                                    <td>{{ result.hasCo }}</td>
+                                    <td>{{ result.measures }}</td>
+{#                                    <td>{{ result.updated_at }}</td>#}
+{#                                    <td>{{ result.created_at }}</td>#}
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% endif %}
+                <!-- AUTHORS TABLE -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+{#    </div>#}
+    <!-- /#page-wrapper -->
+
+{% endblock %}
+
+{% block pagescript %}
+    <script type="text/javascript">
+        $(function () {
+            $('#dataTable').DataTable();
+        });
+    </script>
+{% endblock %}

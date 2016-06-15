@@ -1,0 +1,17 @@
+{% extends "geobase.html" %}
+
+{% block content %}
+	<div id="controlwrapper">
+	<input id="search" type="text" autocomplete="off">
+	<div id='jlist' style="width:250px;">
+		<select size="3" style="width:208px;opacity:0.2;height:50px;float:right" autocomplete="off">
+		</select>
+		<button id="delete" style="width:20px;height:20px; float:right;"></button>
+	</div>
+	</div>
+	<div id='map' style="width:100%;height:100%;">
+{% endblock %}
+
+{% block pagescript %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/geo_c.js') }}"></script>
+{% endblock %}

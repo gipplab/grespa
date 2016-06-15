@@ -1,0 +1,38 @@
+{% from "nav.html" import nav_bar with context %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/geo.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ url_for('static', filename='css/jquery_ui.css') }}">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTfnhICiuKWcsNTUHqbfRWFkcHoKZLwqs&language=de&libraries=geometry,places"></script>
+    <script src="{{ url_for('static', filename='bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/d3.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-ui.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/d3.tip.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mapStyle.js') }}"></script>
+</head>
+
+
+
+    <!-- Page Content -->
+    {% block content %}{% endblock %}
+
+{% block pagescript %}{% endblock %}
+
+</body>
+
+</html>
