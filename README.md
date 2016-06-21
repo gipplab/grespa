@@ -41,8 +41,7 @@ Annotated directory structure and useful files:
 
 The scraper consists of a couple of *scrapy* spiders, notably:
 
-- `author_complete`: Crawls the profile page of a single given author (via the `start_authors` param) and colleagues up 
-   until the configured link depth (see `settings.py`).
+- `author_complete`: Crawls the profile page of a single given author (via the `start_authors` param) and colleagues until reaching the configured link depth (see `settings.py`).
 - `author_labels`: Searches for the names in `SEED_NAME_LIST` (see settings.py) and scrapes the labels from author's 
    profiles
 - `author_general`: Searches for all labels in the database and scrapes general author information
@@ -50,7 +49,7 @@ The scraper consists of a couple of *scrapy* spiders, notably:
 - `author_co`: Scrapes co-authorship information of specified authors
 
 A typical scraping workflow using the above spiders would be, to first scrape label information using the popular names,
-then getting authors for these labels and finally augmenting general author information by detail information regarding
+then getting authors for these labels and finally augmenting general author information with detail information regarding
 scientific measurements or co-authorship.
 
 Or you can issue a *Multi Search* from the webapp to start crawling a list of authors.
@@ -94,9 +93,11 @@ The production settings disable the *Debug Toolbar*, for example.
 
 The webapp can be started via `cd webapp && export $(cat ../*.env | xargs) && python app.py` and normally accessed via `http://localhost:5000`.
 
-If your database is slow, you may want to create indexes over appropriate columns.
+If your database is slow, you may want to create indexes for appropriate columns.
 
 # Authors
 
 - Philipp Meschenmoser
 - Manuel Hotz
+- Norman Meuschke
+- Bela Gipp
