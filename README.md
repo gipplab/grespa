@@ -114,8 +114,8 @@ You should not need to use `pyenv`, `virtualenv`, `virtualenvwrapper` or other t
 
 - [Philipp Meschenmoser](mailto:philipp.meschenmoser@uni.kn)
 - [Manuel Hotz](mailto:manuel.hotz@uni.kn)
-- Norman Meuschke
-- Bela Gipp
+- [Norman Meuschke](norman.meuschke@uni.kn)
+- [Bela Gipp](bela.gipp@uni.kn)
 
 
 # Troubleshooting
