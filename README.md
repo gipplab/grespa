@@ -1,11 +1,28 @@
 # Google Scholar Research Performance Analyzer (GRESPA)
 
-## Project Architecture
-
 The tool consists of two applications. A web scraper (a collection of *scrapy* spiders) to scrape information
  from Google Scholar and a *flask* web application to show and analyze the scraped data. The scraping process can be invoked
  interactively from the web application.
+ 
+ Details on GRESPA can be found in the following publication:
+ 
+P. Meschenmoser, N. Meuschke, M. Hotz, and B. Gipp, “Scraping Scientific Web Repositories: Challenges and Solutions for Automated Content Extraction,” D-Lib Magazine, vol. 22, iss. 9/10, 2016. [(Online)](https://dx.doi.org/10.1045/september2016-meschenmoser) [(PDF)](https://www.gipp.com/wp-content/papercite-data/pdf/meschenmoser2016a.pdf)
 
+Citation:
+```tex
+Article{Meschenmoser2016a,
+  author  = {{M}eschenmoser, {P}hilipp and {M}euschke, {N}orman and {H}otz, {M}anuel and {G}ipp, {B}ela},
+  title   = {{S}craping {S}cientific {W}eb {R}epositories: {C}hallenges and {S}olutions for {A}utomated {C}ontent {E}xtraction},
+  year    = {2016},
+  volume  = {22},
+  number  = {9/10},
+  doi     = {10.1045/september2016-meschenmoser},
+  Url     = {https://dx.doi.org/10.1045/september2016-meschenmoser},
+  journal = {D-Lib Magazine},
+}
+```
+
+## Project Architecture
 Annotated directory structure and useful files:
 ```
 .
